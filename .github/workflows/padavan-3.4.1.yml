@@ -1,4 +1,4 @@
-name: 云编译3.4内核的Padavan
+name: padavan-3.4.1
  
 on:
   workflow_dispatch:
