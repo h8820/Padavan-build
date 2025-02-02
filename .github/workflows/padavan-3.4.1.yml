@@ -88,7 +88,7 @@ jobs:
 
     - name: 拉取源码
       run: |
-        git clone --depth=1 https://github.com/fightroad/Padavan-KVR.git /opt/padavan
+        git clone --depth=1 https://github.com/h8820/Padavan.git /opt/padavan
         cd /opt/padavan/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
