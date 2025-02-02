@@ -92,45 +92,18 @@ jobs:
         sh dl_toolchain.sh
         mkdir -p /opt/images/
 
-    - name: 同步编译预设插件
-      run: | 
-        echo "aria=${{fromJson(github.event.inputs.plugins).aria}}" >> $GITHUB_ENV
-        echo "transmission=${{fromJson(github.event.inputs.plugins).transmission}}" >> $GITHUB_ENV
-        echo "vpnsvr=${{fromJson(github.event.inputs.plugins).vpnsvr}}" >> $GITHUB_ENV
-        echo "vpncli=${{fromJson(github.event.inputs.plugins).vpncli}}" >> $GITHUB_ENV
-        echo "vpncmd=${{fromJson(github.event.inputs.plugins).vpncmd}}" >> $GITHUB_ENV
-        echo "openvpn=${{fromJson(github.event.inputs.plugins).openvpn}}" >> $GITHUB_ENV
-        echo "ss=${{fromJson(github.event.inputs.plugins).ss}}" >> $GITHUB_ENV
-        echo "v2ray=${{fromJson(github.event.inputs.plugins).v2ray}}" >> $GITHUB_ENV
-        echo "xray=${{fromJson(github.event.inputs.plugins).xray}}" >> $GITHUB_ENV
-        echo "trojan=${{fromJson(github.event.inputs.plugins).trojan}}" >> $GITHUB_ENV
-        echo "ssobfs=${{fromJson(github.event.inputs.plugins).ssobfs}}" >> $GITHUB_ENV
-        echo "dnsforwarder=${{fromJson(github.event.inputs.plugins).dnsforwarder}}" >> $GITHUB_ENV
-        echo "adbyby=${{fromJson(github.event.inputs.plugins).adbyby}}" >> $GITHUB_ENV
-        echo "adguardhome=${{fromJson(github.event.inputs.plugins).adguardhome}}" >> $GITHUB_ENV
-        echo "smartdns=${{fromJson(github.event.inputs.plugins).smartdns}}" >> $GITHUB_ENV
-        echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
-        echo "zerotier=${{fromJson(github.event.inputs.plugins).zerotier}}" >> $GITHUB_ENV
-        echo "frpc=${{fromJson(github.event.inputs.plugins).frpc}}" >> $GITHUB_ENV
-        echo "frps=${{fromJson(github.event.inputs.plugins).frps}}" >> $GITHUB_ENV
-        echo "ddnsto=${{fromJson(github.event.inputs.plugins).ddnsto}}" >> $GITHUB_ENV
-        echo "wireguard=${{fromJson(github.event.inputs.plugins).wireguard}}" >> $GITHUB_ENV
-        echo "aldriver=${{fromJson(github.event.inputs.plugins).aldriver}}" >> $GITHUB_ENV
-        echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
-        echo "mentohust=${{fromJson(github.event.inputs.plugins).mentohust}}" >> $GITHUB_ENV
-        echo "scutclient=${{fromJson(github.event.inputs.plugins).scutclient}}" >> $GITHUB_ENV
-        echo "njitclient=${{fromJson(github.event.inputs.plugins).njitclient}}" >> $GITHUB_ENV
-        echo "minieap=${{fromJson(github.event.inputs.plugins).minieap}}" >> $GITHUB_ENV
-        echo "dogcom=${{fromJson(github.event.inputs.plugins).dogcom}}" >> $GITHUB_ENV
-
-    - name: 同步插件设置
+    
+    - name: Build Firmware
+      env:
+        TNAME: JDC-1
       run: |
-        cd $WORK_PATH/trunk
-        if [ ! -f configs/templates/${{ github.event.inputs.target }}.config ] ; then
-        echo "configs/templates/${{ github.event.inputs.target }}.config not found"
+        cd /opt/padavan/trunk
+        if [ ! -f configs/templates/$TNAME.config ] ; then
+        echo "configs/templates/$TNAME.config not found "
         exit 1
         fi
-        cp -f configs/templates/${{ github.event.inputs.target }}.config .config
+        cp -f configs/templates/$TNAME.config .config
+        sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
         ################################################################################################
         #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
         ################################################################################################
