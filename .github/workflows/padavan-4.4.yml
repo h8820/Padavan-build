@@ -12,6 +12,7 @@ on:
         - R2100
         - K2P-USB
         - CR660x
+        - JDC-1
         - JCG-Q20
         - JCG-AC860M
         - JCG-AC876M
