@@ -1,4 +1,4 @@
-name: 云编译3.4内核的Padavan
+name: 云编译3.4内核的Padavan1
  
 on:
   workflow_dispatch:
@@ -39,6 +39,7 @@ on:
         - BELL-A040WQ
         - ZTE-E8820S
         - B70
+        - E8820V2
       plugins:
         description: 'json format string of include configs'
         required: true
