@@ -42,6 +42,7 @@ on:
         - ZTE-E8820S
         - B70
         - YK-L1
+        - E8820V2
       plugins:
         description: 'json format string of include configs'
         required: true
